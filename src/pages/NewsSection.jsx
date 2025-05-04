@@ -22,7 +22,7 @@ const NewsSection = () => {
     return (
         <div>
             <h1 className='font-bold'>Total <span className='text-secondary font-bold'>{news.length}</span> News found</h1>
-            <div>
+            <div className=''>
                 {
                     news.map(singleNews => <NewsCard key={singleNews.id} singleNews={singleNews}></NewsCard>)
                 }

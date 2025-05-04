@@ -1,105 +1,81 @@
 import React from 'react';
-
-import { FaRegBookmark, FaBookmark, FaRegEye, FaRegStar, FaStar, FaFire } from 'react-icons/fa';
-import { IoMdTrendingUp } from 'react-icons/io';
+import { CiBookmark } from 'react-icons/ci';
+import { FaEye, FaStar } from "react-icons/fa";
+import { MdShare } from "react-icons/md";
 
 const NewsCard = ({ singleNews }) => {
-  const {
-    title,
-    rating,
-    total_view,
-    author,
-    thumbnail_url,
-    published_date,
-    others
-  } = singleNews;
+  const data = {
+    id: "bcdefa0123456789bcdefa01",
+    category_id: 2,
+    title: "Bangladesh's Export Earnings Show Strong Growth in Q1 2025",
+    rating: {
+      number: 4,
+      badge: "trending"
+    },
+    total_view: 6789,
+    author: {
+      name: "Shirin Akter",
+      published_date: "2025-04-22T17:00:00.000Z",
+      img: "https://randomuser.me/api/portraits/women/29.jpg"
+    },
+    thumbnail_url: "https://apparelresources.com/wp-content/uploads/2024/11/Bangladeshs-RMG-exports-decline-by-2.8-per-cent-in-FY-25-Q1-.jpg",
+    details:
+      "Bangladesh's export sector has demonstrated robust performance in the first quarter of 2025, registering significant growth compared to the same period last year. Key sectors such as readymade garments and leather goods have contributed substantially to this positive trend...",
+    tags: ["exports", "economy", "business", "growth", "trade"]
+  };
 
-  // Format date
-  const formattedDate = new Date(published_date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
+  const formattedDate = new Date(data.author.published_date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
   });
 
+  const { title, author, thumbnail_url, details, rating, total_view } = singleNews;
+
   return (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-      {/* Image */}
-      <figure className="relative">
-        <img 
-          src={thumbnail_url} 
-          alt={title} 
-          className="w-full h-48 object-cover"
-        />
-        
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex gap-2">
-          {others?.is_today_pick && (
-            <div className="badge badge-error gap-2 text-white">
-              <FaFire /> Today's Pick
-            </div>
-          )}
-          {others?.is_trending && (
-            <div className="badge badge-warning gap-2 text-white">
-              <IoMdTrendingUp size={14} /> Trending
-            </div>
-          )}
-        </div>
-      </figure>
-
-      {/* Card Body */}
-      <div className="card-body p-4">
-        {/* Title */}
-        <h2 className="card-title text-lg line-clamp-2">
-          {title}
-        </h2>
-
-        {/* Author Info */}
-        <div className="flex items-center gap-3 mt-2">
-          <div className="avatar">
-            <div className="w-8 rounded-full">
-              <img src={author.img} alt={author.name} />
-            </div>
-          </div>
+    <div className="card bg-base-100  rounded-none space-y-4 my-7 border border-base-200 mx-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between bg-base-200 p-4">
+        <div className="flex items-center space-x-3">
+          <img src={author.img} alt={author.name} className="w-10 h-10 rounded-full" />
           <div>
-            <p className="text-sm font-medium">{author.name}</p>
+            <h2 className="text-sm font-semibold">{author.name}</h2>
             <p className="text-xs text-gray-500">{formattedDate}</p>
           </div>
         </div>
-
-        {/* Rating and Views */}
-        <div className="flex justify-between items-center mt-4">
-          <div className="flex items-center gap-1">
-            <div className="rating rating-sm">
-              {[...Array(5)].map((_, i) => (
-                i < rating.number ? 
-                  <FaStar key={i} className="text-yellow-400" /> : 
-                  <FaRegStar key={i} className="text-gray-300" />
-              ))}
-            </div>
-            <span className="text-sm ml-1">{rating.number}</span>
-          </div>
-          
-          <div className="flex items-center gap-1 text-sm text-gray-500">
-            <FaRegEye />
-            <span>{total_view.toLocaleString()}</span>
-          </div>
+        <div className='flex gap-2'>
+          <CiBookmark size={24} className="text-xl text-gray-500 cursor-pointer" />
+          <MdShare size={24} className="text-xl text-gray-500 cursor-pointer" />
         </div>
+      </div>
 
-        {/* Tags (optional) */}
-        <div className="flex flex-wrap gap-1 mt-3">
-          {singleNews.tags?.slice(0, 3).map((tag, index) => (
-            <span key={index} className="badge badge-outline text-xs">
-              #{tag}
-            </span>
+      {/* Title */}
+      <h3 className="text-lg font-bold p-4">{title}</h3>
+
+      {/* Image */}
+      <img
+        src={thumbnail_url}
+        alt={title}
+        className="w-full object-cover max-h-[300px] p-4 rounded-2xl"
+      />
+
+      {/* Details */}
+      <p className="text-sm text-gray-700 p-3">{details.slice(0, 200)}...</p>
+      <a href="#" className="text-orange-600 text-sm font-semibold pl-3">
+        Read More
+      </a>
+
+      {/* Footer */}
+      <div className="flex justify-between items-center text-sm text-gray-600 py-6 px-3">
+        <div className="flex items-center space-x-1 text-orange-500">
+          {[...Array(rating.number)].map((_, i) => (
+            <FaStar key={i} />
           ))}
+          <span className="ml-2 text-gray-700">{rating.number}.0</span>
         </div>
-
-        {/* Action Buttons */}
-        <div className="card-actions justify-end mt-4">
-          <button className="btn btn-sm btn-outline">Read More</button>
-          <button className="btn btn-sm btn-ghost">
-            <FaRegBookmark />
-          </button>
+        <div className="flex items-center space-x-1">
+          <FaEye />
+          <span>{total_view}</span>
         </div>
       </div>
     </div>

@@ -6,7 +6,10 @@ const LatestNews = () => {
         <div className='flex items-center gap-4'>
             <button className='btn btn-secondary px-6 rounded-none'>Latest</button>
             <Marquee pauseOnHover={true}>
-                <p className=''>
+                <p className=' mr-10'>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur consequatur non repellat earum quisquam asperiore
+                </p>
+                <p className=' mr-10'>
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur consequatur non repellat earum quisquam asperiore
                 </p>
             </Marquee>
